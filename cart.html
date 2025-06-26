@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="chat.css">
     <style>
 .cart-page {
     padding-top: 100px;
@@ -423,21 +424,23 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <nav class="nav-container">
-            <div class="nav-menu container">
-                <a href="index.html" class="logo">سليمان</a>
-                <button class="hamburger" aria-label="القائمة"><i class="fas fa-bars"></i></button>
+    <nav class="nav-container">
+        <div class="container">
+            <div class="nav-menu">
+                <a href="index.html" class="logo">سليمان للعبايات</a>
                 <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a></li>
-                    <li><a href="index.html#products" class="nav-link"><i class="fas fa-tshirt"></i> المنتجات</a></li>
-                    <li><a href="index.html#about" class="nav-link"><i class="fas fa-info-circle"></i> عن المتجر</a></li>
-                    <li><a href="index.html#contact" class="nav-link"><i class="fas fa-envelope"></i> اتصل بنا</a></li>
-                    <li><a href="cart.html" class="cart-icon active"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></a></li>
+                    <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+                    <li><a href="index.html#products" class="nav-link">منتجاتنا</a></li>
+                    <li><a href="index.html#about" class="nav-link">من نحن</a></li>
+                    <li><a href="index.html#contact" class="nav-link">تواصل معنا</a></li>
                 </ul>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </a>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
     <main class="cart-page">
         <div class="container">
@@ -452,6 +455,10 @@
         </div>
     </main>
 
+    <footer>
+        <script src="config.js"></script>
+        <script src="chat.js"></script>
+    </footer>
     <script>
         // Initialize cart from localStorage or empty array
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -831,6 +838,14 @@
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
         }
+
+        // Update cart count
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+        updateCartCount();
+        window.addEventListener('storage', updateCartCount);
     </script>
 </body>
 </html> 
