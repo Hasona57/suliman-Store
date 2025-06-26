@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سليمان للعبايات</title>
+    <link rel="icon" type="image/jpeg" href="images/Logo/Logo.jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('images/hero/hero.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            padding: 1rem 2rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            transition: all var(--transition-normal);
+            min-width: 200px;
+        }
+
+        .hero-btn.primary {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+        }
+
+        .hero-btn.primary:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .hero-btn.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .hero-btn.secondary:hover {
+            background: white;
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .products-section {
+            padding: 4rem 0;
+            background: var(--background);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .product-image-container {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-normal);
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        .product-colors {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .product-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            border: 2px solid white;
+            border-radius: var(--radius-full);
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .product-link:hover {
+            background: white;
+            color: var(--accent-color);
+        }
+
+        .product-details {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .product-price {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* About Section */
+        .about {
+            padding: 4rem 0;
+            background: var(--background);
+        }
+
+        .about-content {
+            display: grid;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .about-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .contact-content {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-link:hover {
+            color: var(--primary-color);
+        }
+
+        .contact-form {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background: white;
+            color: var(--text-primary);
+            font-family: var(--font-primary);
+            transition: border-color var(--transition-normal);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--background);
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .social-link:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo p {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color var(--transition-normal);
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .features,
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-section ul {
+                align-items: center;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-menu container">
+                <a href="index.html" class="logo">سليمان</a>
+                <button class="hamburger" aria-label="القائمة"><i class="fas fa-bars"></i></button>
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a></li>
+                    <li><a href="#products" class="nav-link"><i class="fas fa-tshirt"></i> المنتجات</a></li>
+                    <li><a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> عن المتجر</a></li>
+                    <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> اتصل بنا</a></li>
+                    <li><a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">أناقة عصرية بلمسة تقليدية</h1>
+                <p class="hero-subtitle">اكتشفي مجموعتنا المميزة من العبايات العصرية والأنيقة</p>
+                <div class="hero-buttons">
+                    <a href="#products" class="hero-btn primary">تسوق الآن <i class="fas fa-shopping-bag"></i></a>
+                    <a href="#about" class="hero-btn secondary">تعرف علينا <i class="fas fa-arrow-left"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="products-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">منتجاتنا المميزة</h2>
+                    <p class="section-subtitle">اختاري من تشكيلتنا الواسعة من العبايات العصرية</p>
+                </div>
+                <div class="product-grid" id="productGrid">
+                    <!-- Products will be added dynamically -->
+                </div>
+        </div>
+    </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">عن المتجر</h2>
+                    <p class="section-subtitle">نقدم لكِ الأناقة والتميز في كل قطعة</p>
+                    </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>نحن في سليمان للعبايات نقدم لكِ تشكيلة متميزة من العبايات العصرية التي تجمع بين الأناقة والحشمة. نحرص على اختيار أجود الخامات وأحدث التصاميم لنقدم لكِ عباية تليق بذوقك الرفيع.</p>
+                </div>
+                    <div class="features">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-tshirt"></i>
+            </div>
+                            <h3>خامات فاخرة</h3>
+                            <p>نستخدم أجود أنواع الأقمشة لضمان الراحة والأناقة</p>
+                    </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-ruler"></i>
+                </div>
+                            <h3>تفصيل متقن</h3>
+                            <p>عناية فائقة بأدق التفاصيل لضمان جودة عالية</p>
+            </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <h3>توصيل سريع</h3>
+                            <p>خدمة توصيل لجميع المناطق بأسعار مناسبة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">اتصل بنا</h2>
+                    <p class="section-subtitle">نحن هنا لخدمتك ومساعدتك في اختيار ما يناسبك</p>
+                </div>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <h3>الهاتف</h3>
+                            <p>+20 123 456 789</p>
+                            <a href="tel:+20123456789" class="contact-link">اتصل بنا</a>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3>البريد الإلكتروني</h3>
+                            <p>info@sulaiman.com</p>
+                            <a href="mailto:info@sulaiman.com" class="contact-link">راسلنا</a>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3>العنوان</h3>
+                            <p>القاهرة، مصر</p>
+                            <a href="#" class="contact-link">احصل على الاتجاهات</a>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <h3>ارسل لنا رسالة</h3>
+                        <form id="contactForm" onsubmit="return false;">
+                            <div class="form-group">
+                                <label>الاسم</label>
+                                <input type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label>البريد الإلكتروني</label>
+                                <input type="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>رقم الهاتف</label>
+                                <input type="tel" required>
+                            </div>
+                            <div class="form-group">
+                                <label>الرسالة</label>
+                                <textarea required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane"></i>
+                                إرسال الرسالة
+                            </button>
+                        </form>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" title="انستجرام"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" title="واتساب"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>سليمان للعبايات</h3>
+                    <p>أناقة تليق بكِ</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>روابط سريعة</h4>
+                        <ul>
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#products">المنتجات</a></li>
+                    <li><a href="#about">عن المتجر</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+            </div>
+                    <div class="footer-section">
+                        <h4>تواصل معنا</h4>
+                        <ul>
+                            <li><a href="tel:+20123456789">+20 123 456 789</a></li>
+                            <li><a href="mailto:info@sulaiman.com">info@sulaiman.com</a></li>
+                            <li>القاهرة، مصر</li>
+                </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+                <p>&copy; 2024 سليمان للعبايات. جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product data with English numerals
+        const products = [
+            {
+                id: '1',
+                title: 'عباية كلاسيكية',
+                price: 350.00,
+                description: 'عباية كلاسيكية أنيقة مصنوعة من أجود أنواع القماش',
+                image: 'images/products/classic/classic-1.jpg',
+                colors: ['black', 'navy', 'brown']
+            },
+            {
+                id: '2',
+                title: 'عباية مطرزة',
+                price: 450.00,
+                description: 'عباية مطرزة بتصميم عصري وأنيق',
+                image: 'images/products/embroidered/embroidered-1.jpg',
+                colors: ['black', 'navy', 'grey']
+            },
+            {
+                id: '3',
+                title: 'عباية كاجوال',
+                price: 299.00,
+                description: 'عباية كاجوال مريحة للاستخدام اليومي',
+                image: 'images/products/casual/casual-1.jpg',
+                colors: ['black', 'brown', 'grey']
+            },
+            {
+                id: '4',
+                title: 'عباية فاخرة',
+                price: 599.00,
+                description: 'عباية فاخرة للمناسبات الخاصة',
+                image: 'images/products/luxury/luxury-1.jpg',
+                colors: ['black', 'navy', 'brown']
+            }
+        ];
+
+        // Load products
+        const productGrid = document.querySelector('.product-grid');
+        products.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.innerHTML = `
+                <div class="product-image-container">
+                    <img src="${product.image}" alt="${product.title}" class="product-image">
+                    <div class="product-overlay">
+                        <div class="product-colors">
+                            ${product.colors.map(color => `
+                                <div class="color-dot" style="background-color: ${color}"></div>
+                            `).join('')}
+                        </div>
+                        <a href="product.html?id=${product.id}" class="product-link">
+                            <i class="fas fa-eye"></i>
+                            عرض التفاصيل
+                        </a>
+                    </div>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">${product.title}</h3>
+                    <p class="product-price">${product.price.toFixed(2)} EGP</p>
+                </div>
+            `;
+            productGrid.appendChild(productCard);
+        });
+
+        // Update cart count
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+        updateCartCount();
+        window.addEventListener('storage', updateCartCount);
+
+        // Hamburger menu
+        const hamburger = document.querySelector('.hamburger');
+        const navList = document.querySelector('.nav-list');
+        
+        hamburger.onclick = function() {
+            navList.classList.toggle('active');
+        };
+    </script>
+</body>
+</html>

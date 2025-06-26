@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل المنتج - سليمان للعبايات</title>
+    <link rel="icon" type="image/jpeg" href="images/Logo/Logo.jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="product.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-menu container">
+                <a href="index.html" class="logo">سليمان</a>
+                <button class="hamburger" aria-label="القائمة"><i class="fas fa-bars"></i></button>
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a></li>
+                    <li><a href="index.html#products" class="nav-link"><i class="fas fa-tshirt"></i> المنتجات</a></li>
+                    <li><a href="index.html#about" class="nav-link"><i class="fas fa-info-circle"></i> عن المتجر</a></li>
+                    <li><a href="index.html#contact" class="nav-link"><i class="fas fa-envelope"></i> اتصل بنا</a></li>
+                    <li><a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <span><a href="index.html">الرئيسية</a></span>
+            <span><a href="index.html#products">المنتجات</a></span>
+            <span id="productBreadcrumb"></span>
+        </div>
+    </div>
+
+    <!-- Product Detail Section -->
+    <main class="container">
+        <div class="product-detail-container">
+            <!-- Product Gallery -->
+            <div class="product-gallery">
+                <img src="" alt="" class="main-image" id="mainImage">
+                <div class="thumbnail-grid" id="thumbnailGrid">
+                    <!-- Thumbnails will be loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- Product Information -->
+            <div class="product-info">
+                <h1 class="product-title" id="productTitle"></h1>
+                <p class="product-price" id="productPrice"></p>
+                <div class="product-description" id="productDescription"></div>
+                
+                <!-- Size Selector -->
+                <div class="product-meta">
+                    <h3>اختر المقاس</h3>
+                    <div class="size-selector" id="sizeSelector">
+                        <button class="size-option">S</button>
+                        <button class="size-option">M</button>
+                        <button class="size-option">L</button>
+                        <button class="size-option">XL</button>
+                    </div>
+                </div>
+
+                <!-- Color Selector -->
+                <div class="product-meta">
+                    <h3>اختر اللون</h3>
+                    <div class="color-selector" id="colorSelector">
+                        <!-- Colors will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Add to Cart Button -->
+                <button class="add-to-cart" id="addToCartBtn">
+                    <i class="fas fa-shopping-cart"></i>
+                    أضف إلى السلة
+                </button>
+
+                <!-- Additional Product Details -->
+                <div class="product-meta">
+                    <h3>تفاصيل المنتج</h3>
+                    <ul class="product-features" id="productFeatures">
+                        <!-- Features will be loaded dynamically -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Related Products -->
+    <section class="related-products container">
+        <h2>منتجات مشابهة</h2>
+        <div class="grid grid-products" id="relatedProducts">
+            <!-- Related products will be loaded dynamically -->
+        </div>
+    </section>
+
+    <script>
+        // Product Detail Page JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get product ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+
+            // Product data with English numerals
+            const products = {
+                '1': {
+                    id: '1',
+                    title: 'عباية كلاسيكية',
+                    price: 350.00,
+                    description: 'عباية كلاسيكية أنيقة مصنوعة من أجود أنواع القماش. مناسبة للمناسبات اليومية والرسمية.',
+                    images: [
+                        'images/products/classic/classic-1.jpg',
+                        'images/products/classic/classic-2.jpg',
+                        'images/products/classic/classic-3.jpg',
+                        'images/products/classic/classic-4.jpg'
+                    ],
+                    features: [
+                        'قماش حرير فاخر',
+                        'تطريز يدوي',
+                        'بطانة داخلية ناعمة',
+                        'سحاب عالي الجودة'
+                    ]
+                },
+                '2': {
+                    id: '2',
+                    title: 'عباية مطرزة',
+                    price: 450.00,
+                    description: 'عباية مطرزة بتصميم عصري وأنيق. مناسبة للمناسبات الخاصة والأعراس.',
+                    images: [
+                        'images/products/embroidered/embroidered-1.jpg',
+                        'images/products/embroidered/embroidered-2.jpg',
+                        'images/products/embroidered/embroidered-3.jpg',
+                        'images/products/embroidered/embroidered-4.jpg'
+                    ],
+                    features: [
+                        'تطريز يدوي فاخر',
+                        'قماش كريب حرير',
+                        'تصميم عصري',
+                        'متوفرة بعدة ألوان'
+                    ]
+                },
+                '3': {
+                    id: '3',
+                    title: 'عباية كاجوال',
+                    price: 299.00,
+                    description: 'عباية كاجوال مريحة للاستخدام اليومي. مثالية للمناسبات غير الرسمية والاستخدام اليومي.',
+                    images: [
+                        'images/products/casual/casual-1.jpg',
+                        'images/products/casual/casual-2.jpg',
+                        'images/products/casual/casual-3.jpg',
+                        'images/products/casual/casual-4.jpg'
+                    ],
+                    features: [
+                        'قماش قطني مريح',
+                        'تصميم عصري بسيط',
+                        'جيوب جانبية',
+                        'مناسبة للاستخدام اليومي'
+                    ]
+                },
+                '4': {
+                    id: '4',
+                    title: 'عباية فاخرة',
+                    price: 599.00,
+                    description: 'عباية فاخرة بتصميم ملكي وتطريز مميز. مثالية للمناسبات الخاصة والحفلات الراقية.',
+                    images: [
+                        'images/products/luxury/luxury-1.jpg',
+                        'images/products/luxury/luxury-2.jpg',
+                        'images/products/luxury/luxury-3.jpg',
+                        'images/products/luxury/luxury-4.jpg'
+                    ],
+                    features: [
+                        'تطريز ذهبي فاخر',
+                        'قماش حرير ملكي',
+                        'تصميم حصري',
+                        'خامات عالية الجودة'
+                    ]
+                }
+            };
+
+            // Load product data
+            const product = products[productId];
+            if (product) {
+                document.title = `${product.title} - سليمان للعبايات`;
+                document.getElementById('productTitle').textContent = product.title;
+                document.getElementById('productPrice').textContent = product.price.toFixed(2) + ' EGP';
+                document.getElementById('productDescription').textContent = product.description;
+                document.getElementById('mainImage').src = product.images[0];
+                document.getElementById('mainImage').alt = product.title;
+
+                // Load thumbnails
+                const thumbnailGrid = document.getElementById('thumbnailGrid');
+                product.images.forEach((image, index) => {
+                    const thumb = document.createElement('img');
+                    thumb.src = image;
+                    thumb.alt = `${product.title} - صورة ${index + 1}`;
+                    thumb.className = 'thumbnail' + (index === 0 ? ' active' : '');
+                    thumb.onclick = () => {
+                        document.getElementById('mainImage').src = image;
+                        document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                        thumb.classList.add('active');
+                    };
+                    thumbnailGrid.appendChild(thumb);
+                });
+
+                // Load features
+                const featuresList = document.getElementById('productFeatures');
+                product.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.textContent = feature;
+                    featuresList.appendChild(li);
+                });
+
+                // Update breadcrumb
+                document.getElementById('productBreadcrumb').textContent = product.title;
+
+                // Add to Cart Button
+                document.getElementById('addToCartBtn').addEventListener('click', function() {
+                    const selectedSize = document.querySelector('.size-option.active');
+                    const selectedColor = document.querySelector('.color-option.active');
+                    
+                    if (!selectedSize || !selectedColor) {
+                        alert('الرجاء اختيار المقاس واللون');
+                        return;
+                    }
+
+                    const cartItem = {
+                        id: product.id + '-' + Date.now(), // Unique ID for cart item
+                        productId: product.id,
+                        name: product.title,
+                        price: product.price,
+                        size: selectedSize.textContent,
+                        color: selectedColor.getAttribute('data-color'),
+                        image: product.images[0],
+                        quantity: 1
+                    };
+
+                    // Get existing cart
+                    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                    
+                    // Add new item
+                    cart.push(cartItem);
+                    
+                    // Save cart
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    
+                    // Update cart count
+                    document.getElementById('cartCount').textContent = cart.length;
+                    
+                    // Show success message
+                    alert('تم إضافة المنتج إلى سلة التسوق');
+                });
+
+                // Load related products
+                const relatedProductsContainer = document.getElementById('relatedProducts');
+                Object.entries(products).forEach(([id, prod]) => {
+                    if (id !== productId) {
+                        const productCard = document.createElement('a');
+                        productCard.href = `product.html?id=${id}`;
+                        productCard.className = 'product-card';
+                        productCard.innerHTML = `
+                            <div class="product-image-container">
+                                <img src="${prod.images[0]}" alt="${prod.title}" class="product-image">
+                            </div>
+                            <div class="product-details">
+                                <h3 class="product-title">${prod.title}</h3>
+                                <p class="product-price">${prod.price.toFixed(2)} EGP</p>
+                            </div>
+                        `;
+                        relatedProductsContainer.appendChild(productCard);
+                    }
+                });
+            }
+
+            // Hamburger menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navList = document.querySelector('.nav-list');
+            
+            hamburger.onclick = function() {
+                navList.classList.toggle('active');
+            };
+
+            // Cart count update
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                document.getElementById('cartCount').textContent = cart.length;
+            }
+            updateCartCount();
+            window.addEventListener('storage', updateCartCount);
+
+            // Size Selector
+            const sizeButtons = document.querySelectorAll('.size-option');
+            sizeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    sizeButtons.forEach(b => b.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+
+            // Color Selector
+            const colors = {
+                'black': '#000000',
+                'navy': '#000080',
+                'brown': '#8B4513',
+                'grey': '#808080'
+            };
+
+            const colorSelector = document.getElementById('colorSelector');
+            Object.entries(colors).forEach(([name, value]) => {
+                const colorBtn = document.createElement('button');
+                colorBtn.className = 'color-option';
+                colorBtn.style.backgroundColor = value;
+                colorBtn.setAttribute('data-color', name);
+                colorBtn.title = name;
+                
+                colorBtn.addEventListener('click', () => {
+                    document.querySelectorAll('.color-option').forEach(b => b.classList.remove('active'));
+                    colorBtn.classList.add('active');
+                });
+                
+                colorSelector.appendChild(colorBtn);
+            });
+        });
+    </script>
+</body>
+</html>
